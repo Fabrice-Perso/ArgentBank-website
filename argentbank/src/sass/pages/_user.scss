@@ -12,9 +12,47 @@
     color: #fff;
     font-weight: bold;
     padding: 10px;
+    cursor: pointer;
   }
 }
+.edit-content {
+  box-sizing: border-box;
+  background-color: white;
+  width: 300px;
+  margin: 0 auto;
+  margin: 3% auto;
+  padding: 2rem;
 
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+
+    label {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+  .edit-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+    cursor: pointer;
+  }
+}
 .account {
   display: flex;
   justify-content: space-between;
@@ -62,6 +100,7 @@
       border: 2px solid $primary-color;
       background-color: $primary-color;
       color: #fff;
+      cursor: pointer;
     }
   }
 
