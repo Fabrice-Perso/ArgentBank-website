@@ -22,6 +22,7 @@
   margin: 0 auto;
   margin: 3% auto;
   padding: 2rem;
+  border-radius: 8px;
 
   .input-wrapper {
     display: flex;
@@ -40,6 +41,9 @@
       cursor: pointer;
       &:disabled {
         cursor: not-allowed;
+        background-color: #c0c0c0;
+        color: #4f4f4f;
+        border: 2px solid #a0a0a0;
       }
     }
   }
@@ -66,6 +70,7 @@
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
+  border-radius: 8px;
 
   .account-content-wrapper {
     width: 100%;
@@ -101,6 +106,7 @@
       background-color: $primary-color;
       color: #fff;
       cursor: pointer;
+      border-radius: 4px;
     }
   }
 

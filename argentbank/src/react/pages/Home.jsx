@@ -1,12 +1,9 @@
 import PageTitle from "../components/layout/PageTitle";
 import { chatLogo, moneyLogo, securityLogo } from "../../assets/images";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 const Home = () => {
   return (
     <>
       <PageTitle title="ArgentBank - HomePage" />
-      <Header />
       <main>
         <div className="hero">
           <section className="hero-content">
@@ -36,7 +33,6 @@ const Home = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

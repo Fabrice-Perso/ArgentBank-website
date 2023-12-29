@@ -13,6 +13,7 @@
   background-color: $primary-color;
   color: #fff;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .save-edit-button,
@@ -26,4 +27,9 @@
   background-color: $primary-color;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  border-radius: 4px;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
 }

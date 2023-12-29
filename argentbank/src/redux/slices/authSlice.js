@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const signupUser = createAsyncThunk("auth/signupUser", async (userData, thunkAPI) => {
+  try {
+    const response = await axios.post("http://localhost:3001/api/v1/user/signup", userData);
+    return response.data.body; // Retourne les données de l'utilisateur
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, password }, thunkAPI) => {
   try {
     const response = await axios.post("http://localhost:3001/api/v1/user/login", {
@@ -55,6 +64,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    restoreSession: (state, action) => {
+      state.token = action.payload;
+      // Mettre à jour tout autre état nécessaire
+    },
     // Reducer pour la déconnexion
     logout: (state) => {
       state.token = null;
@@ -65,6 +78,14 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(signupUser.fulfilled, (state, action) => {
+        // Gérez la réussite de l'inscription ici, par exemple en mettant à jour l'état
+        state.user = action.payload;
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        // Gérez l'échec de l'inscription ici
+        state.error = action.payload;
+      })
       .addCase(loginUser.pending, (state) => {
         state.status = "loading";
       })
@@ -93,6 +114,7 @@ const authSlice = createSlice({
   },
 });
 
+export const { restoreSession } = authSlice.actions;
 export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;
