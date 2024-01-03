@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 // Importation des pages React
 import Home from "./react/pages/Home";
 import MissingPage from "./react/pages/MissingPage";
+import SignUp from "./react/pages/SignUp";
 import SignIn from "./react/pages/SignIn";
-import LogIn from "./react/pages/LogIn";
 import User from "./react/pages/User";
 import PrivateRoute from "./react/components/PrivateRoute";
 import Header from "./react/components/layout/Header";
@@ -35,10 +35,10 @@ function App() {
         <Routes>
           {/* Redirection de la racine vers /Accueil */}
           <Route path="/" element={<Home />} />
-          <Route path="/LogIn" element={<LogIn />} />
-          {/* Redirection de /SignIn vers /Sign-in */}
-          <Route path="/SignIn" element={<Navigate to="/Sign-in" replace />} />
-          <Route path="/Sign-in" element={<SignIn />} />
+          <Route path="/SignIn" element={<SignIn />} />
+          {/* Redirection de /SignUp vers /Sign-up */}
+          <Route path="/SignUp" element={<Navigate to="/Sign-up" replace />} />
+          <Route path="/Sign-up" element={<SignUp />} />
           <Route
             path="/User"
             element={

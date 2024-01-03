@@ -2,3 +2,20 @@ $primary-color: #00bc77;
 $primary-text-color: #2c3e50;
 $active-link-color: #42b983;
 $dark-background-color: #12002b;
+
+// Tailles et dimensions pour Missing
+$missing-page-margin: 40px 0;
+$missing-page-gap: 130px;
+$error-width: 597px;
+$error-height: 263px;
+$error-color: white;
+$error-title-font-size: 288px;
+$error-text-font-size: 36px;
+$link-font-size: 18px;
+$font-family-base: "Montserrat", sans-serif;
+$font-weight-Largebold: 700;
+$font-line-height: 146%;
+$font-weight-bold: 500;
+// Breakpoints pour les médias queries
+$mobile-breakpoint: 768px;
+$tablet-breakpoint: 1024px;

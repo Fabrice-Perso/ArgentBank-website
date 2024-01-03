@@ -31,7 +31,9 @@
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
-
+  i {
+    padding: 5px;
+  }
   &:hover {
     text-decoration: underline;
   }

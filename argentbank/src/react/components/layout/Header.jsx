@@ -38,8 +38,8 @@ const Header = () => {
           </div>
         ) : (
           // Affichez le lien de connexion si non connecté
-          <Link className="main-nav-item" to="/LogIn">
-            LogIn
+          <Link className="main-nav-item" to="/SignIn">
+            Sign In
           </Link>
         )}
       </div>
