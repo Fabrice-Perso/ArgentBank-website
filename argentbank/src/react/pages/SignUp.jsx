@@ -46,7 +46,7 @@ const SignUp = () => {
       console.error("Erreur lors de l'inscription :", error);
       setNotification("Échec de l'inscription. Veuillez réessayer.");
     } finally {
-      setIsLoading(false); // Désactiver le loader
+      setTimeout(() => setIsLoading(false), 3000);
     }
   };
 

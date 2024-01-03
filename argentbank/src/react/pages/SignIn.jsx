@@ -11,14 +11,16 @@ const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const handleRememberMeChange = (e) => {
     setRememberMe(e.target.checked);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     setIsLoading(true); // Activer le loader
+
     try {
       const token = await dispatch(loginUser({ email: username, password })).unwrap();
       if (rememberMe) {
@@ -32,7 +34,7 @@ const SignIn = () => {
       setNotification("Échec de la connexion. Veuillez réessayer.");
       setTimeout(() => setNotification(""), 3000);
     } finally {
-      setIsLoading(false); // Désactiver le loader
+      setTimeout(() => setIsLoading(false), 3000);
     }
   };
 
