@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const PrivateRoute = ({ children }) => {
   const token = useSelector((state) => state.auth.token);
 
-  return token ? children : <Navigate to="/LogIn" />;
+  return token ? children : <Navigate to="/SignIn" />;
 };
 
 // Ajout de la validation PropTypes

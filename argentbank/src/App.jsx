@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { restoreSession, fetchUserProfile } from "./redux/slices/authSlice";
 // Importation des styles principaux
 import "./sass/main.scss";
@@ -15,22 +16,30 @@ import Header from "./react/components/layout/Header";
 import Loader from "./react/components/ui/Loader";
 import Footer from "./react/components/layout/Footer";
 
-function App() {
+function SessionHandler() {
   const dispatch = useDispatch();
-  const basename = import.meta.env.MODE === "production" ? "/ArgentBank/" : "";
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token) {
-      // Dispatcher une action pour rétablir la session
       dispatch(restoreSession(token));
       dispatch(fetchUserProfile());
+      navigate("/user"); // Redirige vers la page utilisateur si un token existe
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
+
+  return null;
+}
+function App() {
+  const basename = import.meta.env.MODE === "production" ? "/ArgentBank/" : "";
+
   return (
     <>
       <Router basename={basename}>
         <Header />
+        <SessionHandler />
         <Loader timeout={3000} />
         <Routes>
           {/* Redirection de la racine vers /Accueil */}
