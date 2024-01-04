@@ -1,0 +1,332 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /transactions/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Retrieve User Transactions
+      description: >
+        Retrieves all transactions for the specified user. This endpoint returns transactions with their types, categories, and notes. The data can be stored in the Redux store on the client side for additional processing like calculating the account balance and transaction count, thus reducing the need for further API calls.
+      parameters:
+        - name: userId
+          in: path
+          description: User ID to fetch transactions for
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of transactions retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+          examples:
+            application/json: [
+              {
+                "accountId": "12345",
+                "accountName": "Checking Account",
+                "transactionId": "67890",
+                "date": "2021-03-01",
+                "transactionType": "electronic",
+                "categoryId": "10",
+                "note": "Grocery Shopping",
+                "amount": 150.00
+              }
+            ]
+        '400':
+          description: Invalid user ID provided.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal Server Error.
+          
+  /transactions/categories/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Retrieve Categories for User
+      description: >
+        Retrieves a list of categories associated with the specified user. This can be used to populate dropdowns or selection lists for categorizing transactions.
+      parameters:
+        - name: userId
+          in: path
+          description: User ID to fetch categories for
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of categories retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Category'
+          examples:
+            application/json: [
+              {
+                "categoryId": "10",
+                "categoryLabel": "Food",
+              }
+            ]
+        '400':
+          description: Invalid user ID provided.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal Server Error.
+  /transactions/{userId}/{transactionId}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update Transaction
+      description: Updates the category and note of a specific transaction for the given user.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          type: string
+          description: User ID associated with the transaction.
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: Transaction ID to be updated.
+        - in: body
+          name: body
+          required: true
+          description: New category ID and note for the transaction.
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully.
+          schema:
+            $ref: '#/definitions/Transaction'
+          examples:
+            application/json: [
+              {
+                "transactionId": "67890",
+                "categoryId": "10",
+                "note": "Restaurant",
+              }
+            ]
+        '400':
+          description: Invalid request if data is incomplete or incorrect.
+        '404':
+          description: User or transaction not found.
+        '500':
+          description: Internal Server Error.
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+      userName:
+        type: string
+        description: user public name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      userName:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: Unique identifier for the account to which the transaction belongs.
+      accountName:
+        type: string
+        description: Name of the account.
+      transactionId:
+        type: string
+        description: Unique identifier for the transaction.
+      date:
+        type: string
+        format: date
+        description: Date when the transaction was made.
+      transactionType:
+        type: string
+        description: Type of the transaction (e.g., debit, credit).
+      categoryId:
+        type: string
+        description: Identifier for the category of the transaction.
+      note:
+        type: string
+        description: Additional notes associated with the transaction.
+      amount:
+        type: number
+        format: double
+        description: Monetary value of the transaction.
+  Category:
+    type: object
+    properties:
+      categoryId:
+        type: string
+        description: Unique identifier for the category.
+      categoryLabel:
+        type: string
+        description: Human-readable label for the category.
+  TransactionUpdate:
+    type: object
+    properties:
+      categoryId:
+        type: string
+        description: New category ID for the transaction.
+      note:
+        type: string
+        description: Updated note for the transaction.
