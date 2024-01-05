@@ -1,11 +1,7 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { restoreSession, fetchUserProfile } from "./redux/slices/authSlice";
-// Importation des styles principaux
-import "./sass/main.scss";
+// Importation des composants de React Router
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-// Importation des pages React
+
+// Importation des composants et des pages
 import Home from "./react/pages/Home";
 import MissingPage from "./react/pages/MissingPage";
 import SignUp from "./react/pages/SignUp";
@@ -16,25 +12,14 @@ import Header from "./react/components/layout/Header";
 import Loader from "./react/components/ui/Loader";
 import Footer from "./react/components/layout/Footer";
 
-function SessionHandler() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+// Importation du gestionnaire de session et de la configuration
+import SessionHandler from "./react/components/auth/SessionHandler";
+import { basename } from "./react/config";
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+// Importation des styles principaux
+import "./sass/main.scss";
 
-    if (token) {
-      dispatch(restoreSession(token));
-      dispatch(fetchUserProfile());
-      navigate("/user"); // Redirige vers la page utilisateur si un token existe
-    }
-  }, [dispatch, navigate]);
-
-  return null;
-}
 function App() {
-  const basename = import.meta.env.MODE === "production" ? "/ArgentBank/" : "";
-
   return (
     <>
       <Router basename={basename}>
@@ -42,12 +27,10 @@ function App() {
         <SessionHandler />
         <Loader timeout={3000} />
         <Routes>
-          {/* Redirection de la racine vers /Accueil */}
+          {/* Routes principales de l'application */}
           <Route path="/" element={<Home />} />
-          <Route path="/SignIn" element={<SignIn />} />
-          {/* Redirection de /SignUp vers /Sign-up */}
-          <Route path="/SignUp" element={<Navigate to="/Sign-up" replace />} />
-          <Route path="/Sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route
             path="/User"
             element={
@@ -57,7 +40,7 @@ function App() {
             }
           />
           <Route path="/error404" element={<MissingPage />} />
-          {/* Redirection vers `/error404` pour tout autre chemin non reconnu */}
+          {/* Gestion des chemins non reconnus */}
           <Route path="*" element={<Navigate to="/error404" replace />} />
         </Routes>
         <Footer />

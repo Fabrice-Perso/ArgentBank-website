@@ -1,9 +1,9 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
 
+// Utilisation des variables et mixins dans le CSS
 html {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $font-family-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

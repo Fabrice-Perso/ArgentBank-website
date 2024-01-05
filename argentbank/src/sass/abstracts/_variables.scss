@@ -1,7 +1,16 @@
-$primary-color: #00bc77;
+// Variables de polices et de couleurs
+$font-family-base: "Avenir, Helvetica, Arial, sans-serif";
 $primary-text-color: #2c3e50;
-$active-link-color: #42b983;
 $dark-background-color: #12002b;
+
+$primary-color: #00bc77;
+$active-link-color: #42b983;
+$footer-padding: 2rem 0 1.5rem;
+
+$main-nav-padding: 5px 20px;
+$font-weight-bold: bold;
+$main-nav-logo-width: 200px;
+$main-nav-icon-padding: 5px;
 
 // Tailles et dimensions pour Missing
 $missing-page-margin: 40px 0;
@@ -19,3 +28,38 @@ $font-weight-bold: 500;
 // Breakpoints pour les médias queries
 $mobile-breakpoint: 768px;
 $tablet-breakpoint: 1024px;
+
+$loader-bg-color: rgba($dark-background-color, 0.5);
+$loader-border-color: $primary-color;
+$loader-border-size: 20px;
+$loader-size: 200px;
+$loader-text-color: $primary-text-color;
+$loader-text-size: 1.8em;
+
+$notification-bg-color: #00bc77;
+$notification-text-color: white;
+$notification-padding: 10px;
+$notification-border-radius: 5px;
+$notification-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+$notification-spinner-border-color: #12002b;
+$notification-spinner-size: 20px;
+
+$border-radius: 8px;
+$font-size-medium: 1rem;
+$font-size-small: 0.9rem;
+$feature-item-padding: 2.5rem;
+$feature-icon-size: 100px;
+$feature-icon-border-width: 10px;
+$feature-item-title-color: #222;
+$font-size-large: 1.25rem;
+$feature-item-title-margin: 0.5rem;
+$hero-content-top: 50px;
+$hero-content-right: 50px;
+$hero-content-width: 300px;
+$hero-content-margin: 2rem;
+$font-size-xlarge: 1.5rem;
+$font-size-large: 1.2rem;
+$feature-icon-padding: 1rem;
+$disabled-bg-color: #c0c0c0;
+$disabled-text-color: #4f4f4f;
+$disabled-border-color: #a0a0a0;

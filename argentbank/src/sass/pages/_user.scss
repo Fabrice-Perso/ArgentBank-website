@@ -1,6 +1,5 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
 
 .header {
   color: #fff;
@@ -15,6 +14,7 @@
     cursor: pointer;
   }
 }
+
 .edit-content {
   box-sizing: border-box;
   background-color: white;
@@ -22,7 +22,7 @@
   margin: 0 auto;
   margin: 3% auto;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: $border-radius; // Utilisation de la nouvelle variable
 
   .input-wrapper {
     display: flex;
@@ -37,16 +37,18 @@
 
     input {
       padding: 5px;
-      font-size: 1.2rem;
+      font-size: $font-size-large; // Utilisation de la nouvelle variable
       cursor: pointer;
+
       &:disabled {
         cursor: not-allowed;
-        background-color: #c0c0c0;
-        color: #4f4f4f;
-        border: 2px solid #a0a0a0;
+        background-color: $disabled-bg-color; // Utilisation de la nouvelle variable
+        color: $disabled-text-color; // Utilisation de la nouvelle variable
+        border: 2px solid $disabled-border-color; // Utilisation de la nouvelle variable
       }
     }
   }
+
   .edit-button-wrapper {
     display: flex;
     flex-direction: row;
@@ -57,6 +59,7 @@
     cursor: pointer;
   }
 }
+
 .account {
   display: flex;
   justify-content: space-between;
@@ -70,7 +73,7 @@
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
-  border-radius: 8px;
+  border-radius: $border-radius; // Utilisation de la nouvelle variable
 
   .account-content-wrapper {
     width: 100%;
@@ -79,13 +82,13 @@
     .account-title {
       margin: 0;
       padding: 0;
-      font-size: 1rem;
+      font-size: $font-size-medium; // Utilisation de la nouvelle variable
       font-weight: normal;
     }
 
     .account-amount {
       margin: 0;
-      font-size: 2.5rem;
+      font-size: $font-size-xlarge; // Utilisation de la nouvelle variable
       font-weight: bold;
     }
 
@@ -96,17 +99,8 @@
 
   .account-content-wrapper.cta {
     .transaction-button {
-      display: block;
-      width: 100%;
-      padding: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
+      @include button-styles($primary-color); // Utilisation d'un mixin pour les styles de bouton
       margin-top: 1rem;
-      border: 2px solid $primary-color;
-      background-color: $primary-color;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 4px;
     }
   }
 

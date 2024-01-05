@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "./variables" as *;
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "tablet" {
     @media (max-width: $tablet-breakpoint) {
@@ -8,5 +8,24 @@
     @media (max-width: $mobile-breakpoint) {
       @content;
     }
+  }
+}
+
+// Définition du mixin pour les styles de bouton
+@mixin button-styles($button-color) {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 2px solid $button-color;
+  background-color: $button-color;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: darken($button-color, 10%);
   }
 }

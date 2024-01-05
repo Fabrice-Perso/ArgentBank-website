@@ -1,17 +1,19 @@
-import PageTitle from "../components/layout/PageTitle";
-import { updateUserProfile } from "../../redux/slices/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-const User = () => {
-  const dispatch = useDispatch();
-  const [notification, setNotification] = useState("");
-  // Sélectionnez les informations de l'utilisateur du store Redux
-  const user = useSelector((state) => state.auth.user);
-  const [editMode, setEditMode] = useState(false);
+import PageTitle from "../components/layout/PageTitle"; // Importer le composant PageTitle depuis le chemin spécifié
+import { updateUserProfileAsync } from "../../redux/slices/authSlice"; // Importer l'action updateUserProfileAsync depuis le fichier d'authentification
+import { useDispatch, useSelector } from "react-redux"; // Importer les fonctions useDispatch et useSelector depuis react-redux
+import { useEffect, useState } from "react"; // Importer les fonctions useEffect et useState depuis React
 
+// Définir le composant User
+const User = () => {
+  const dispatch = useDispatch(); // Initialiser la fonction dispatch pour envoyer des actions Redux
+  const [notification, setNotification] = useState(""); // Initialiser un état local pour la notification
+  const user = useSelector((state) => state.auth.user); // Sélectionner les informations de l'utilisateur à partir du store Redux
+  const [editMode, setEditMode] = useState(false); // Initialiser un état local pour le mode d'édition
+
+  // Utiliser useEffect pour effectuer des actions lorsque l'utilisateur ou le mode d'édition change
   useEffect(() => {
     if (user && !editMode) {
-      // Mettre à jour formData avec les données de l'utilisateur
+      // Mettre à jour formData avec les données de l'utilisateur si l'utilisateur est chargé et que le mode d'édition n'est pas activé
       setFormData({
         userName: user.userName || "",
         firstName: user.firstName || "",
@@ -19,33 +21,36 @@ const User = () => {
       });
     }
   }, [user, editMode]);
+
   const [formData, setFormData] = useState({
     userName: user?.userName || "",
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
   });
+
   if (!user && !editMode) {
-    return <div>Loading user data...</div>;
+    return <div>Loading user data...</div>; // Afficher un message de chargement si l'utilisateur n'est pas disponible et le mode d'édition n'est pas activé
   }
 
   const handleEdit = () => {
-    setEditMode(true);
+    setEditMode(true); // Activer le mode d'édition
   };
 
   const handleCancel = () => {
-    setEditMode(false);
+    setEditMode(false); // Annuler le mode d'édition
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); // Mettre à jour les données du formulaire lorsqu'un champ est modifié
   };
 
   const handleSave = async () => {
     try {
-      await dispatch(updateUserProfile({ userName: formData.userName })).unwrap();
+      // Envoyer une demande pour mettre à jour le profil de l'utilisateur avec les nouvelles informations
+      await dispatch(updateUserProfileAsync({ userName: formData.userName })).unwrap();
       setNotification("Modifications enregistrées avec succès.");
-      setTimeout(() => setNotification(""), 3000); // Masquer après 3 secondes
-      setEditMode(false);
+      setTimeout(() => setNotification(""), 3000); // Masquer la notification après 3 secondes
+      setEditMode(false); // Désactiver le mode d'édition après avoir enregistré les modifications
     } catch (error) {
       console.error("Erreur lors de la mise à jour du profil :", error);
       setNotification("Échec de l'enregistrement des modifications.");

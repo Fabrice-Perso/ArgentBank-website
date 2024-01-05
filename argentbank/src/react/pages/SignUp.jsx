@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { signupUser } from "../../redux/slices/authSlice";
-import PageTitle from "../components/layout/PageTitle";
+import { useState } from "react"; // Importation du hook useState depuis React
+import { useDispatch } from "react-redux"; // Importation du hook useDispatch depuis React
+import { useNavigate } from "react-router-dom"; // Importation du hook useNavigate depuis React Router
+import { signupUser } from "../../redux/slices/authSlice"; // Importation de l'action signupUser depuis le module "../../redux/slices/authSlice"
+import PageTitle from "../components/layout/PageTitle"; // Importation du composant PageTitle depuis le répertoire "../components/layout/PageTitle"
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -18,19 +18,23 @@ const SignUp = () => {
   const [notification, setNotification] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Fonction appelée lorsqu'un champ du formulaire est modifié
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // Fonction appelée lorsqu'un formulaire est soumis
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true); // Activer le loader
+
     if (formData.password !== formData.confirmPassword) {
       setNotification("Les mots de passe ne correspondent pas.");
       return;
     }
 
     try {
+      // Appel de l'action signupUser pour l'inscription
       await dispatch(
         signupUser({
           email: formData.email,

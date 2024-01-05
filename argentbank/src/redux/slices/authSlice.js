@@ -1,74 +1,66 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { signup, login, fetchUserProfile, updateUserProfile } from "../services/api";
 
+// Création d'une action asynchrone "signupUser" pour l'inscription de l'utilisateur
 export const signupUser = createAsyncThunk("auth/signupUser", async (userData, thunkAPI) => {
   try {
-    const response = await axios.post("http://localhost:3001/api/v1/user/signup", userData);
-    return response.data.body; // Retourne les données de l'utilisateur
+    const user = await signup(userData); // Appel à la fonction "signup" pour l'inscription
+    return user;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data); // En cas d'erreur, renvoie l'erreur avec des données de réponse
   }
 });
 
-export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, password }, thunkAPI) => {
+// Création d'une action asynchrone "loginUser" pour la connexion de l'utilisateur
+export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, thunkAPI) => {
   try {
-    const response = await axios.post("http://localhost:3001/api/v1/user/login", {
-      email,
-      password,
-    });
-    return response.data.body.token;
+    const token = await login(credentials); // Appel à la fonction "login" pour la connexion
+    return token;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data); // En cas d'erreur, renvoie l'erreur avec des données de réponse
   }
 });
 
-export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async (_, thunkAPI) => {
+// Création d'une action asynchrone "fetchUserProfileAsync" pour récupérer le profil de l'utilisateur
+export const fetchUserProfileAsync = createAsyncThunk("auth/fetchUserProfile", async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.token;
-    const response = await axios.post(
-      "http://localhost:3001/api/v1/user/profile",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data.body;
+    const userProfile = await fetchUserProfile(token); // Appel à la fonction "fetchUserProfile" pour récupérer le profil
+    return userProfile;
   } catch (error) {
-    console.error("Erreur lors de la requête : ", error.response);
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data); // En cas d'erreur, renvoie l'erreur avec des données de réponse
   }
 });
-export const updateUserProfile = createAsyncThunk("auth/updateUserProfile", async (userData, thunkAPI) => {
+
+// Création d'une action asynchrone "updateUserProfileAsync" pour mettre à jour le profil de l'utilisateur
+export const updateUserProfileAsync = createAsyncThunk("auth/updateUserProfile", async (userData, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.token;
-    const response = await axios.put("http://localhost:3001/api/v1/user/profile", userData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data.body;
+    const updatedUser = await updateUserProfile(userData, token); // Appel à la fonction "updateUserProfile" pour mettre à jour le profil
+    return updatedUser;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.response.data); // En cas d'erreur, renvoie l'erreur avec des données de réponse
   }
 });
+
+// État initial du slice auth
 const initialState = {
   token: null,
   status: "idle",
   error: null,
-  user: null, // Pour stocker les informations de l'utilisateur
+  user: null,
 };
 
+// Création du slice auth
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Action pour restaurer la session en fournissant un jeton
     restoreSession: (state, action) => {
       state.token = action.payload;
-      // Mettre à jour tout autre état nécessaire
     },
-    // Reducer pour la déconnexion
+    // Action pour déconnecter l'utilisateur
     logout: (state) => {
       state.token = null;
       state.user = null;
@@ -77,13 +69,12 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Gestion des actions asynchrones et de leurs états
     builder
       .addCase(signupUser.fulfilled, (state, action) => {
-        // Gérez la réussite de l'inscription ici, par exemple en mettant à jour l'état
         state.user = action.payload;
       })
       .addCase(signupUser.rejected, (state, action) => {
-        // Gérez l'échec de l'inscription ici
         state.error = action.payload;
       })
       .addCase(loginUser.pending, (state) => {
@@ -97,24 +88,24 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(fetchUserProfile.fulfilled, (state, action) => {
-        state.user = action.payload; // Stockez les informations de l'utilisateur ici
+      .addCase(fetchUserProfileAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
       })
-      .addCase(fetchUserProfile.pending, (state) => {
+      .addCase(fetchUserProfileAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchUserProfile.rejected, (state, action) => {
+      .addCase(fetchUserProfileAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
-      .addCase(updateUserProfile.fulfilled, (state, action) => {
-        state.user = action.payload; // Mettez à jour l'état avec les nouvelles informations de l'utilisateur
+      .addCase(updateUserProfileAsync.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
-    // Gérez les cas 'pending' et 'rejected' si nécessaire
   },
 });
 
-export const { restoreSession } = authSlice.actions;
-export const { logout } = authSlice.actions;
+// Export des actions du slice
+export const { restoreSession, logout } = authSlice.actions;
 
+// Export du réducteur du slice
 export default authSlice.reducer;

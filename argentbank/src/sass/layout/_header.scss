@@ -1,15 +1,15 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
 
+// Styles pour la barre de navigation principale (.main-nav)
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: $main-nav-padding;
 
   a {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
     color: $primary-text-color;
 
     &.router-link-exact-active {
@@ -23,17 +23,20 @@
 
     .main-nav-logo-image {
       max-width: 100%;
-      width: 200px;
+      width: $main-nav-logo-width;
     }
   }
 }
 
+// Styles pour les éléments de la barre de navigation (.main-nav-item)
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+
   i {
-    padding: 5px;
+    padding: $main-nav-icon-padding;
   }
+
   &:hover {
     text-decoration: underline;
   }

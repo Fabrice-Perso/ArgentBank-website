@@ -1,8 +1,14 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { argentbankLogo } from "../../../assets/images";
-import { Link } from "react-router-dom";
-import { logout } from "../../../redux/slices/authSlice";
+import { useState } from "react"; // Importation du hook useState de React
+import { useSelector, useDispatch } from "react-redux"; // Importation des hooks useSelector et useDispatch de React Redux
+import { argentbankLogo } from "../../../assets/images"; // Importation de l'image "argentbankLogo"
+import { Link } from "react-router-dom"; // Importation du composant "Link" de React Router
+import { logout } from "../../../redux/slices/authSlice"; // Importation de l'action "logout" depuis le slice "authSlice" pour gérer la déconnexion de l'utilisateur
+
+// Constantes pour les chaînes de caractères
+const SIGN_IN = "Sign In";
+const SIGN_OUT = "Sign Out";
+const USER_PROFILE = "User Profile";
+const LOGOUT_MESSAGE = "You have been logged out.";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -10,12 +16,16 @@ const Header = () => {
   const user = useSelector((state) => state.auth.user);
   const [showLogoutMessage, setShowLogoutMessage] = useState(false);
 
+  // Gestion de la déconnexion
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Supprimer le token du localStorage
-    dispatch(logout()); // Réinitialiser l'état d'authentification dans le Redux store
+    localStorage.removeItem("token");
+    dispatch(logout());
     setShowLogoutMessage(true);
-    setTimeout(() => setShowLogoutMessage(false), 3000); // Masquer le message après 3 secondes
+    setTimeout(() => setShowLogoutMessage(false), 3000);
   };
+
+  // Fonction utilitaire pour générer des classes d'icônes FontAwesome
+  const getIconClass = (iconName) => `fa fa-${iconName}`;
 
   return (
     <nav className="main-nav">
@@ -25,25 +35,23 @@ const Header = () => {
       </Link>
       <div>
         {token ? (
-          // Affichez les informations de l'utilisateur et le lien de déconnexion si connecté
           <div>
             <Link className="main-nav-item" to="/user">
-              <i className="fa fa-user-circle"></i>
-              {user?.userName}
+              <i className={getIconClass("user-circle")}></i>
+              {`${USER_PROFILE}: ${user?.userName}`}
             </Link>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-sign-out"></i>
-              Sign Out
+              <i className={getIconClass("sign-out")}></i>
+              {SIGN_OUT}
             </Link>
           </div>
         ) : (
-          // Affichez le lien de connexion si non connecté
-          <Link className="main-nav-item" to="/SignIn">
-            Sign In
+          <Link className="main-nav-item" to="/sign-in">
+            {SIGN_IN}
           </Link>
         )}
       </div>
-      {showLogoutMessage && <div className="notification">Vous avez été déconnecté.</div>}
+      {showLogoutMessage && <div className="notification">{LOGOUT_MESSAGE}</div>}
     </nav>
   );
 };

@@ -1,6 +1,5 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
 
 .sign-in-content {
   box-sizing: border-box;
@@ -9,7 +8,7 @@
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: $border-radius; // Utilisation de la nouvelle variable
 
   .input-wrapper {
     display: flex;
@@ -25,7 +24,7 @@
 
     input {
       padding: 5px;
-      font-size: 1.2rem;
+      font-size: $font-size-large; // Utilisation de la nouvelle variable
       cursor: pointer;
     }
   }

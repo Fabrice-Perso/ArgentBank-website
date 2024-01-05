@@ -1,8 +1,12 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
 .footer {
   display: flex;
   justify-content: center;
   border-top: 2px solid #ccc;
-  padding: 2rem 0 1.5rem;
+  padding: $footer-padding;
+
   .footer-text {
     margin: 0;
     padding: 0;

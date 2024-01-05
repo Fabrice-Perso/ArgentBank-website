@@ -1,34 +1,18 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
 
+// Bouton de connexion
 .sign-in-button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  @include button-styles($primary-color); // Utilisation d'un mixin pour les styles de bouton
   margin-top: 1rem;
-  border: 2px solid $primary-color;
-  background-color: $primary-color;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 4px;
 }
 
+// Boutons "Enregistrer" et "Annuler" pour l'édition
 .save-edit-button,
 .cancel-edit-button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: 2px solid $primary-color;
-  background-color: $primary-color;
-  color: #fff;
-  cursor: pointer;
+  @include button-styles($primary-color); // Utilisation du même mixin pour les styles de bouton
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-  border-radius: 4px;
+
   &:hover {
     background-color: darken($primary-color, 10%);
   }

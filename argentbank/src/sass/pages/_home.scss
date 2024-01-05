@@ -1,8 +1,5 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-@use "../base/typography" as *;
-
-$primary-color: #00bc77;
 
 .hero {
   background: url("../assets/img/bank-tree.webp") center -50px / cover no-repeat;
@@ -18,17 +15,17 @@ $primary-color: #00bc77;
   padding: 2rem;
   text-align: left;
   margin: 0 auto;
-  border-radius: 8px;
+  border-radius: $border-radius;
 
   .subtitle {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: $font-size-medium;
     margin: 0;
   }
 
   .text {
     margin-bottom: 0;
-    font-size: 0.9rem;
+    font-size: $font-size-small;
   }
 }
 
@@ -36,31 +33,31 @@ $primary-color: #00bc77;
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 920px) {
+  @media (min-width: $tablet-breakpoint) {
     flex-direction: row;
   }
 }
 
 .feature-item {
   flex: 1;
-  padding: 2.5rem;
+  padding: $feature-item-padding;
 
   .feature-icon {
-    width: 100px;
-    border: 10px solid $primary-color;
+    width: $feature-icon-size;
+    border: $feature-icon-border-width solid $primary-color;
     border-radius: 50%;
-    padding: 1rem;
+    padding: $feature-icon-padding;
   }
 
   .feature-item-title {
-    color: #222;
-    font-size: 1.25rem;
+    color: $feature-item-title-color;
+    font-size: $font-size-large;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: $feature-item-title-margin;
   }
 }
 
-@media (min-width: 920px) {
+@media (min-width: $tablet-breakpoint) {
   .hero {
     height: 400px;
     background-position: center 33%;
@@ -68,17 +65,17 @@ $primary-color: #00bc77;
 
   .hero-content {
     position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 300px;
-    margin: 2rem;
+    top: $hero-content-top;
+    right: $hero-content-right;
+    width: $hero-content-width;
+    margin: $hero-content-margin;
 
     .subtitle {
-      font-size: 1.5rem;
+      font-size: $font-size-xlarge;
     }
 
     .text {
-      font-size: 1.2rem;
+      font-size: $font-size-large;
     }
   }
 }

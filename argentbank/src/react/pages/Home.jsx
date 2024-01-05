@@ -1,9 +1,10 @@
-import PageTitle from "../components/layout/PageTitle";
-import { chatLogo, moneyLogo, securityLogo } from "../../assets/images";
+import PageTitle from "../components/layout/PageTitle"; // Importation du composant de titre de page
+import { chatLogo, moneyLogo, securityLogo } from "../../assets/images"; // Importation des logos depuis les images
+
 const Home = () => {
   return (
     <>
-      <PageTitle title="ArgentBank - HomePage" />
+      <PageTitle title="ArgentBank - HomePage" /> {/* Définition du titre de la page */}
       <main>
         <div className="hero">
           <section className="hero-content">
