@@ -8,7 +8,7 @@ const SignIn = () => {
   const dispatch = useDispatch(); // Obtention de la fonction dispatch depuis Redux
   const navigate = useNavigate(); // Obtention de la fonction navigate depuis React Router
   const [notification, setNotification] = useState(""); // État pour gérer les notifications
-  const [username, setUsername] = useState(""); // État pour le nom d'utilisateur
+  const [email, setEmail] = useState(""); // État pour le nom d'utilisateur
   const [password, setPassword] = useState(""); // État pour le mot de passe
   const [rememberMe, setRememberMe] = useState(false); // État pour gérer la case à cocher "Se souvenir de moi"
   const [isLoading, setIsLoading] = useState(true); // État pour gérer le chargement
@@ -25,7 +25,7 @@ const SignIn = () => {
     setIsLoading(true); // Active le loader
 
     try {
-      const token = await dispatch(loginUser({ email: username, password })).unwrap(); // Appel de l'action loginUser avec les informations d'identification
+      const token = await dispatch(loginUser({ email: email, password })).unwrap(); // Appel de l'action loginUser avec les informations d'identification
       if (rememberMe) {
         localStorage.setItem("token", token); // Stockage du token dans le localStorage si "Se souvenir de moi" est activé
       }
@@ -52,8 +52,8 @@ const SignIn = () => {
             {" "}
             {/* Formulaire de connexion avec gestionnaire de soumission */}
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label> {/* Champ de saisie du nom d'utilisateur */}
-              <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} aria-required="true" required /> {/* Champ contrôlé pour le nom d'utilisateur */}
+              <label htmlFor="email">Email</label> {/* Champ de saisie du nom d'utilisateur */}
+              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} aria-required="true" required /> {/* Champ contrôlé pour l'email' */}
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label> {/* Champ de saisie du mot de passe */}
