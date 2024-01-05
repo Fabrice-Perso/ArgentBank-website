@@ -7,7 +7,7 @@ import MissingPage from "./react/pages/MissingPage";
 import SignUp from "./react/pages/SignUp";
 import SignIn from "./react/pages/SignIn";
 import User from "./react/pages/User";
-import PrivateRoute from "./react/components/PrivateRoute";
+import PrivateRoute from "./react/components/auth/PrivateRoute";
 import Header from "./react/components/layout/Header";
 import Loader from "./react/components/ui/Loader";
 import Footer from "./react/components/layout/Footer";

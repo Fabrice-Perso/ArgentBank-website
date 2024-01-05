@@ -30,11 +30,11 @@ const SignIn = () => {
         localStorage.setItem("token", token); // Stockage du token dans le localStorage si "Se souvenir de moi" est activé
       }
       await dispatch(fetchUserProfileAsync()).unwrap(); // Appel de l'action fetchUserProfileAsync pour récupérer le profil utilisateur
-      setNotification("Connexion réussie. Redirection en cours..."); // Affichage d'une notification de réussite
+      setNotification("Successful login. Redirecting..."); // Affichage d'une notification de réussite
       setTimeout(() => navigate("/user"), 3000); // Redirection vers la page utilisateur après 3 secondes
     } catch (error) {
       console.error("Erreur lors de la connexion ou de la récupération du profil :", error);
-      setNotification("Échec de la connexion. Veuillez réessayer."); // Affichage d'une notification d'échec
+      setNotification("Login failed. Please try again."); // Affichage d'une notification d'échec
       setTimeout(() => setNotification(""), 3000); // Suppression de la notification après 3 secondes
     } finally {
       setTimeout(() => setIsLoading(false), 3000); // Désactivation du loader après 3 secondes
@@ -68,7 +68,7 @@ const SignIn = () => {
             </button>{" "}
             {/* Bouton de connexion */}
             <p>
-              new customer ? <Link to="/SignUp">Sign Up </Link> {/* Lien vers la page d'inscription */}
+              new customer ? <Link to="/sign-up">Sign Up </Link> {/* Lien vers la page d'inscription */}
             </p>
           </form>
         </section>

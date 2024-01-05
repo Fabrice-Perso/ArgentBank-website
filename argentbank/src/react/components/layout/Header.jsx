@@ -7,7 +7,6 @@ import { logout } from "../../../redux/slices/authSlice"; // Importation de l'ac
 // Constantes pour les chaînes de caractères
 const SIGN_IN = "Sign In";
 const SIGN_OUT = "Sign Out";
-const USER_PROFILE = "User Profile";
 const LOGOUT_MESSAGE = "You have been logged out.";
 
 const Header = () => {
@@ -38,7 +37,7 @@ const Header = () => {
           <div>
             <Link className="main-nav-item" to="/user">
               <i className={getIconClass("user-circle")}></i>
-              {`${USER_PROFILE}: ${user?.userName}`}
+              {`${user?.userName}`}
             </Link>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
               <i className={getIconClass("sign-out")}></i>

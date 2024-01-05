@@ -29,7 +29,7 @@ const SignUp = () => {
     setIsLoading(true); // Activer le loader
 
     if (formData.password !== formData.confirmPassword) {
-      setNotification("Les mots de passe ne correspondent pas.");
+      setNotification("The passwords do not match.");
       return;
     }
 
@@ -44,11 +44,11 @@ const SignUp = () => {
           userName: formData.userName,
         })
       ).unwrap();
-      setNotification("Inscription réussie. Redirection...");
-      setTimeout(() => navigate("/SignIn"), 3000);
+      setNotification("Registration successful. Redirecting...");
+      setTimeout(() => navigate("/sign-in"), 3000);
     } catch (error) {
       console.error("Erreur lors de l'inscription :", error);
-      setNotification("Échec de l'inscription. Veuillez réessayer.");
+      setNotification("Registration failed. Please try again.");
     } finally {
       setTimeout(() => setIsLoading(false), 3000);
     }
@@ -60,7 +60,7 @@ const SignUp = () => {
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <div className="notification-container">
             {notification && (
               <div className="notification">
@@ -95,7 +95,7 @@ const SignUp = () => {
               <input type="password" id="confirmPassword" onChange={handleChange} aria-required="true" required />
             </div>
             <button type="submit" className="sign-in-button">
-              Sign In
+              Sign Up
             </button>
           </form>
         </section>

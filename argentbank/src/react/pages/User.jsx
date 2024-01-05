@@ -48,12 +48,12 @@ const User = () => {
     try {
       // Envoyer une demande pour mettre à jour le profil de l'utilisateur avec les nouvelles informations
       await dispatch(updateUserProfileAsync({ userName: formData.userName })).unwrap();
-      setNotification("Modifications enregistrées avec succès.");
+      setNotification("Changes saved successfully.");
       setTimeout(() => setNotification(""), 3000); // Masquer la notification après 3 secondes
       setEditMode(false); // Désactiver le mode d'édition après avoir enregistré les modifications
     } catch (error) {
       console.error("Erreur lors de la mise à jour du profil :", error);
-      setNotification("Échec de l'enregistrement des modifications.");
+      setNotification("Failed to save changes.");
       setTimeout(() => setNotification(""), 3000);
     }
   };
