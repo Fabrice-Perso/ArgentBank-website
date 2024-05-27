@@ -13,7 +13,6 @@ import Loader from "./react/components/ui/Loader";
 import Footer from "./react/components/layout/Footer";
 
 // Importation du gestionnaire de session et de la configuration
-import SessionHandler from "./react/components/auth/SessionHandler";
 import { basename } from "./react/config";
 
 // Importation des styles principaux
@@ -24,7 +23,7 @@ function App() {
     <>
       <Router basename={basename}>
         <Header />
-        <SessionHandler />
+        {/* <SessionHandler /> */}
         <Loader timeout={3000} />
         <Routes>
           {/* Routes principales de l'application */}

@@ -56,10 +56,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // Action pour restaurer la session en fournissant un jeton
-    restoreSession: (state, action) => {
-      state.token = action.payload;
-    },
     // Action pour déconnecter l'utilisateur
     logout: (state) => {
       state.token = null;
@@ -105,7 +101,7 @@ const authSlice = createSlice({
 });
 
 // Export des actions du slice
-export const { restoreSession, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 // Export du réducteur du slice
 export default authSlice.reducer;
